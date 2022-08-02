@@ -3,17 +3,18 @@ import './App.css';
 import useFetch from './hooks/CustomFetch/useFetch';
 
 function App() {
-  const { data, loading, error } = useFetch('https://rickandmortyapi.com/api/character');
-  console.log('data: ', data);
-  console.log('loading: ', loading);
-  console.log('error: ', error);
+  const { responseData } = useFetch('https://rickandmortyapi.com/api/character');
+  console.log('data: ', responseData.data);
+  console.log('loading: ', responseData.loading);
+  console.log('error: ', responseData.error);
+  console.log('response data: ', responseData);
 
-  if (loading) return <h1>LOADING...</h1>
-  if (error) console.log(error);
+  if (responseData.loading) return <h1>LOADING...</h1>
+  if (responseData.error) console.log(responseData.error);
   return (
     <div className="App">
       <h1>Custom Hook</h1>
-      { data?.map( (character) => <p key={character.id}>{character.name}</p> ) }
+      { responseData.data?.map( (character) => <p key={character.id}>{character.name}</p> ) }
     </div>
   );
 }
